@@ -1,0 +1,10 @@
+{
+    "bot-client-id": "abcdef123456",
+    "bot-client-secret": "xyz098765",
+    "rtgg-game-tag": "sly1",
+    "rtgg-game-track-categories": ["S.T.O.P."],
+    "rtgg-game-allow-custom": false,
+    "randomizer-web-host": "https://knuutti.github.io/slygolds-randomizer-web",
+    "rtgg-host": "https://racetime.gg",
+    "rtgg-websocket": "wss://racetime.gg"
+}
