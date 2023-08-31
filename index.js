@@ -73,7 +73,7 @@ class rtggRace {
             if (debugLog)
                 console.log(`${new Date().toISOString()} - sent welcome message to ${raceRoom.name}`);
 
-            const introMsg = 'Welcome to Sly Cooper and the Thievious Raccoonus! I am Interpol, your friendly randomizer bot. Type !seed to have me roll a randomizer seed for you.';
+            const introMsg = config["bot-welcome-message"];
             raceRoom.sendMessage(introMsg);
         }
 
@@ -132,7 +132,7 @@ class rtggRace {
                         raceRoom.sendMessage("Sorry, I already created a seed for this race. Please use !seed --force to roll a new one anyway and replace the existing seed.");
                     }
                 } else if (command == "!help") {
-                    raceRoom.sendMessage("Welcome to Sly Cooper and the Thievious Raccoonus! I am Interpol, your friendly randomizer bot. Type !seed to have me roll a randomizer seed for you.");
+                    raceRoom.sendMessage(config["bot-welcome-message"]);
                 }
                 return;
             }
@@ -215,7 +215,7 @@ async function loop() {
       }
     }
   
-    setTimeout(loop, 10000);  
+    setTimeout(loop, 7000);  
 }
 
 /**
