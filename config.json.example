@@ -6,5 +6,6 @@
     "rtgg-game-allow-custom": false,
     "randomizer-web-host": "https://knuutti.github.io/slygolds-randomizer-web",
     "rtgg-host": "https://racetime.gg",
-    "rtgg-websocket": "wss://racetime.gg"
+    "rtgg-websocket": "wss://racetime.gg",
+    "verbose-logging": false
 }
