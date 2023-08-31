@@ -26,9 +26,6 @@ const state = {
  * init new websocket connection by creating new rtggRace class objects
  */
 async function checkForNewRaces() {
-    if (debugLog)
-        console.log(`${new Date().toISOString()} - checking for new races`);
-
     const categoryURL = new URL(`/${config["rtgg-game-tag"]}/data`, config["rtgg-host"])
 
     const res = await axios.get(categoryURL);
