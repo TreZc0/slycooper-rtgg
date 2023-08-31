@@ -65,8 +65,11 @@ async function checkForNewRaces() {
 class rtggRace {
     constructor(raceName, websocketURL) {
         this.name = raceName;
+        this.wsURL = websocketURL;
         this.ws = new WebSocket(websocketURL);
         this.seedURL = null;
+        this.pingInterval = null;
+        this.init = false;
         let raceRoom = this;
 
         this.ws.onopen = function() {
@@ -74,7 +77,24 @@ class rtggRace {
                 console.log(`${new Date().toISOString()} - sent welcome message to ${raceRoom.name}`);
 
             const introMsg = config["bot-welcome-message"];
-            raceRoom.sendMessage(introMsg);
+            if (!raceRoom.init)
+                raceRoom.sendMessage(introMsg);
+
+            raceRoom.init = true;
+            
+            raceRoom.keepalivePing();
+        }
+
+        this.ws.onclose = function(event) {
+
+            if (!event.wasClean) {
+                console.log(`${raceRoom.name} websocket connection got interrupted - reconnecting`);
+                raceRoom.ws = null;
+
+                setTimeout(() => {
+                    raceRoom.ws = new WebSocket(raceRoom.wsURL);
+                }, 3000);
+            }
         }
 
         this.ws.onmessage = function(msg) {
@@ -82,7 +102,7 @@ class rtggRace {
             if (data.type == 'race.data') {
 
                 if (invalidRaceStates.includes(data.race.status.value)) {
-                    this.close();
+                    raceRoom.ws.close();
                     delete state.trackedRaceRooms[raceRoom.name];
                 }
                 return;
@@ -151,6 +171,19 @@ class rtggRace {
                 'message': msg 
             }
         }));
+    }
+
+    keepalivePing() {
+        if (this.pingInterval)
+            clearInterval(raceRoom.pingInterval);
+
+            this.pingInterval = setInterval(() => this.ws.send(JSON.stringify({ action: "ping" }), err => {
+
+            if (err) {
+                console.error(`Racetime ping message send failed for room ${this.name}: ${err}`);
+            }
+
+        }), 5000);
     }
 }
 
