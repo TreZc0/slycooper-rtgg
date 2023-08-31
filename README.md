@@ -10,6 +10,8 @@ A racetime.gg bot for the Sly Cooper speedrunning community.
 * Connect to the chat of a new race
 * Use `!seed` to roll a numeric seed between 10 and 13 characters
 * Send a seed URL to the chat and set it as race room info
+* Customizable Welcome message
+* Customizable webhost (can be used with any randomizer accepting numeric seeds as url parameter)
 
 # Setup
 * Rename `config.json.example` to `config.json`
@@ -19,4 +21,5 @@ A racetime.gg bot for the Sly Cooper speedrunning community.
   * If you do not want the bot to track custom races, set `rtgg-game-track-custom` to `false`
   * If you want the bot to log any important action, set `verbose-logging` to `true`
 * Install the required packages via `npm install`
-* Run the app via `npm start`
+* Run the app via `npm start` or `node index.js`
+  * For persistence or automated restarts, use process managers like [PM2](https://pm2.keymetrics.io/) or [Forever](https://www.npmjs.com/package/forever)
